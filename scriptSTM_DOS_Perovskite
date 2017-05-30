@@ -13,7 +13,7 @@ mpdboot -n $NUM_NODES -v -r ssh -f $PBS_NODEFILE
 
 # Run the Application
 export OMP_NUM_THREADS=$PBS_NP
-PSEUDO_DIR=`.`
+PSEUDO_DIR=`/home/user/quantum_espresso/pseudopotenciales/`
 TMP_DIR=`.`
 
 # required executables and pseudopotentials
@@ -35,7 +35,7 @@ cat > NBTOre.scf.in << EOF
     calculation = 'scf'
     restart_mode='from_scratch',
     title='NBTO'
-    pseudo_dir = '.',
+    pseudo_dir = '$PSEUDO_DIR',
     outdir='.',
     prefix='NBTO'
  /
