@@ -30,49 +30,49 @@ PROJWFC_COMMAND=projwfc.x
 SUMPDOS_COMMAND=sumpdos.x
 
 # self-consistent calculation
-cat > AlAs110re.scf.in << EOF
+cat > NBTOre.scf.in << EOF
  &control
     calculation = 'scf'
     restart_mode='from_scratch',
-    title='AlAs 110 surface slab, relaxed (central plane fixed)'
+    title='NBTO'
     pseudo_dir = '.',
     outdir='.',
-    prefix='AlAs110'
+    prefix='NBTO'
  /
  &system
-    ibrav=  8, celldm(1) =7.424621202, celldm(2)=1.414213576,
-    celldm(3)= 6.00000,
-    nat= 14, ntyp= 2,
-    ecutwfc =14.0,
+    ibrav =  5, 
+    celldm(1) = 10.5427, celldm(4) = 0.5127
+    nat =  10, 
+    ntyp = 4,
+    ecutwfc = 430
+    occupations = 'fixed'
  /
  &electrons
-    mixing_mode = 'plain'
     mixing_beta = 0.7
-    conv_thr =  1.0d-6
+    diagonalization = 'david'
+    conv_thr = 1e-9
  /
  ATOMIC_SPECIES
- Al  26.98  Al.pz-vbc.UPF
- As  74.92  As.pz-bhs.UPF
+ Bi 208.980 Bi.pbe-d-mt.UPF
+ Na 22.9898 Na.pbe-sp-hgh.UPF
+ Ti 47.867  Ti.pbe-mt_fhi.UPF
+ O  15.999  O.pbe-mt.UPF
 ATOMIC_POSITIONS
- As  0.000000000  -0.044777195  -0.058158722
- Al  0.500000000   0.251460333   0.113525468
- As  0.500000000   0.712279009   0.504183885
- Al  0.000000000   1.067633546   0.480460620
- As  0.000000000  -0.003937059   0.995826731
- Al  0.500000000   0.351400965   1.004220212
- As  0.000000000  -0.003937059   2.004173269
- Al  0.500000000   0.351400965   1.995779788
- As  0.500000000   0.712279009   2.495816115
- Al  0.000000000   1.067633546   2.519539380
- As  0.000000000  -0.044777195   3.058158722
- Al  0.500000000   0.251460333   2.886474532
- As  0.500000000   0.707106800   1.500000000
- Al  0.000000000   1.060660200   1.500000000
+Bi 0.218350      0.218351      0.218350
+Na 0.728870      0.728871      0.728870
+Ti 0.488363      0.488363      0.488363
+Ti 0.984806      0.984808      0.984806
+O  0.195409      0.311763      0.765647
+O  0.814013      0.691746      0.252633
+O  0.765647      0.195410      0.311763
+O  0.311763      0.765648      0.195409
+O  0.252633      0.814014      0.691745
+O  0.691745      0.252634      0.814013
 K_POINTS {automatic}
- 6 2 1 0 0 0
+ 6 6 6 0 0 0
 EOF
 
-mpiexec -np 16 $CODE/$PW_COMMAND < AlAs110re.scf.in > AlAs110re.scf.out
+mpiexec -np 16 $CODE/$PW_COMMAND < NBTOre.scf.in > NBTOre.scf.out
 
 
 
